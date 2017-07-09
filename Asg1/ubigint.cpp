@@ -86,6 +86,6 @@ bool ubigint::operator< (const ubigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) { 
-   return out << ubigint(that.uvalue);
+   return out << that.uvalue;
 }
 
