@@ -38,7 +38,11 @@ bigint bigint::operator+ (const bigint& that) const {
 
 bigint bigint::operator- (const bigint& that) const {
    ubigint result = uvalue - that.uvalue;
-   return result;
+   if (uvalue < that.uvalue){ return {result, not is_negative}
+   }else return result;
+      }
+   }
+	return result;
 }
 
 bigint bigint::operator* (const bigint& that) const {
@@ -67,7 +71,6 @@ bool bigint::operator< (const bigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const bigint& that) {
-   return out << "bigint(" << (that.is_negative ? "-" : "+")
-              << "," << that.uvalue << ")";
+   return out << bigint(that.uvalue , that.is_negative ? "-" : "+");
 }
 
