@@ -23,14 +23,14 @@ ubigint::ubigint (const string& that): uvalue(0) {
       uvalue = uvalue * 10 + digit - '0';
    }
 }
-
+yda
 ubigint ubigint::operator+ (const ubigint& that) const {
    return ubigint (uvalue + that.uvalue);
 }
 
 ubigint ubigint::operator- (const ubigint& that) const {
-   if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
-   return ubigint (uvalue - that.uvalue);
+   if (*this < that){ return ubigint( that.uvalue - uvalue)
+   }else{ return ubigint (uvalue - that.uvalue);}
 }
 
 ubigint ubigint::operator* (const ubigint& that) const {
