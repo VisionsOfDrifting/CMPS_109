@@ -39,10 +39,9 @@ bigint bigint::operator+ (const bigint& that) const {
 bigint bigint::operator- (const bigint& that) const {
    ubigint result = uvalue - that.uvalue;
    if (uvalue < that.uvalue){ return {result, not is_negative};
-   }else return result;
-      }
-   return result;
+   }else { return result;}
 }
+   
 
 bigint bigint::operator* (const bigint& that) const {
    bigint result = uvalue * that.uvalue;
