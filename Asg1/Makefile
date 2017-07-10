@@ -12,14 +12,16 @@ COMPILECPP  = g++ -std=gnu++14 -g -O0 -Wall -Wextra -Wold-style-cast
 MAKEDEPCPP  = g++ -std=gnu++14 -MM
 
 MODULES     = ubigint bigint libfns scanner debug util
-CPPHEADER   = ${MODULES:=.h} iterstack.h relops.h
-CPPSOURCE   = ${MODULES:=.cpp} main.cpp
+HDRSRC      = ${MODULES:=.h} iterstack.h relops.h
+CPPSRC      = ${MODULES:=.cpp} main.cpp
 EXECBIN     = ydc
 OBJECTS     = ${CPPSOURCE:.cpp=.o}
 MODULESRC   = ${foreach MOD, ${MODULES}, ${MOD}.h ${MOD}.cpp}
 OTHERSRC    = ${filter-out ${MODULESRC}, ${CPPHEADER} ${CPPSOURCE}}
 ALLSOURCES  = ${MODULESRC} ${OTHERSRC} ${MKFILE}
 LISTING     = Listing.ps
+SUBMIT    = $(HDRSRC) $(CPPSRC) Makefile README PARTNER
+
 
 all : ${EXECBIN}
 
@@ -53,6 +55,9 @@ ${DEPFILE} :
 
 again :
 	${GMAKE} spotless dep ci all lis
+
+submit :
+	submit cmps109-wm.u17 asg1 $(SUBMIT)
 
 ifeq (${NEEDINCL}, )
 include ${DEPFILE}
