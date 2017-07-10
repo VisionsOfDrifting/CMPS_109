@@ -102,7 +102,6 @@ bigint bigint::operator- (const bigint& that) const {
          return result;}
    }
 }
-   
 
 bigint bigint::operator* (const bigint& that) const {
    bigint result = uvalue * that.uvalue;
