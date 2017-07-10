@@ -35,31 +35,31 @@ bigint bigint::operator- () const {
 bigint bigint::operator+ (const bigint& that) const {
    if(is_negative and that.is_negative){
       ubigint result = uvalue + that.uvalue;
-      cout << "in _ - _" << endl;
+     // cout << "in _ - _" << endl;
       return {result, true};}
    if(is_negative and !that.is_negative){
       if(uvalue > that.uvalue){
          ubigint result = that.uvalue - uvalue;
-         cout << "in _ - +" << endl;
+         //cout << "in _ - +" << endl;
          return {result, true};
    }else if(uvalue < that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in _ - _" << endl;
+       //  cout << "in _ - _" << endl;
          return result;}
    }
    if(!is_negative and !that.is_negative){
       ubigint result = uvalue + that.uvalue;
-      cout << "in + - _" << endl;
+     // cout << "in + - _" << endl;
       return result;
    }
    if(!is_negative and that.is_negative){
       if(uvalue < that.uvalue){
          ubigint result = that.uvalue - uvalue;
-         cout << "in + - +" << endl;
+        // cout << "in + - +" << endl;
          return result;}
       else if(uvalue > that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in + - +" << endl;
+        // cout << "in + - +" << endl;
          return {result,true};}
    }
 }
@@ -68,31 +68,31 @@ bigint bigint::operator- (const bigint& that) const {
    if(is_negative and that.is_negative){
       if(uvalue > that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in _ - _" << endl;
+        // cout << "in _ - _" << endl;
          return {result, true};
        }else if(uvalue < that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in _ - _" << endl;
+       //  cout << "in _ - _" << endl;
          return result;}
    }
    if(is_negative and !that.is_negative){
       ubigint result = uvalue + that.uvalue;
-      cout << "in _ - +" << endl;
+     // cout << "in _ - +" << endl;
       return {result, true};
    }
    if(!is_negative and that.is_negative){
       ubigint result = uvalue + that.uvalue;
-      cout << "in + - _" << endl;
+     // cout << "in + - _" << endl;
       return result;
    }
    if(!is_negative and !that.is_negative){
       if(uvalue < that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in + - +" << endl;
+        // cout << "in + - +" << endl;
          return {result, true};}
       else if(uvalue > that.uvalue){
          ubigint result = uvalue - that.uvalue;
-         cout << "in + - +" << endl;
+        // cout << "in + - +" << endl;
          return result;}
    }
 }
