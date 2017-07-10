@@ -1,4 +1,9 @@
-// $Id: util.cpp,v 1.1 2016-06-14 18:19:17-07 - - $
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #include <cstring>
 using namespace std;

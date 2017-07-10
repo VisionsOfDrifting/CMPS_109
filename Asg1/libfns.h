@@ -1,6 +1,9 @@
-// $Id: libfns.h,v 1.2 2015-07-02 16:03:36-07 - - $
-
-// Library functions not members of any class.
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #include "bigint.h"
 

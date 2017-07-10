@@ -1,4 +1,9 @@
-// $Id: main.cpp,v 1.54 2016-06-14 18:19:17-07 - - $
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #include <cassert>
 #include <deque>

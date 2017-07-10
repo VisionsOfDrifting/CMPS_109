@@ -1,10 +1,9 @@
-// $Id: util.h,v 1.1 2016-06-14 18:19:17-07 - - $
-
-//
-// util -
-//    A utility class to provide various services
-//    not conveniently included in other modules.
-//
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #ifndef __UTIL_H__
 #define __UTIL_H__

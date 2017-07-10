@@ -1,5 +1,9 @@
-// $Id: ubigint.cpp,v 1.14 2016-06-23 17:21:26-07 - - $
-
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 #include <cctype>
 #include <cstdlib>
 #include <exception>

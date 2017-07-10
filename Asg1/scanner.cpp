@@ -1,5 +1,9 @@
-// $Id: scanner.cpp,v 1.19 2016-06-23 17:19:42-07 - - $
-
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 #include <cassert>
 #include <iostream>
 #include <locale>

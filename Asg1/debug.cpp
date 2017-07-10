@@ -1,5 +1,9 @@
-// $Id: debug.cpp,v 1.8 2016-06-23 17:20:50-07 - - $
-
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 #include <climits>
 #include <iostream>
 #include <vector>

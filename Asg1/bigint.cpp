@@ -1,4 +1,9 @@
-// $Id: bigint.cpp,v 1.76 2016-06-14 16:34:24-07 - - $
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #include <cstdlib>
 #include <exception>

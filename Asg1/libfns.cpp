@@ -1,4 +1,9 @@
-// $Id: libfns.cpp,v 1.4 2015-07-03 14:46:41-07 - - $
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 
 #include "libfns.h"
 

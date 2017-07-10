@@ -1,5 +1,9 @@
-// $Id: ubigint.h,v 1.11 2016-03-24 19:43:57-07 - - $
-
+**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg1
+*************
 #ifndef __UBIGINT_H__
 #define __UBIGINT_H__
 
