@@ -33,16 +33,10 @@ bigint bigint::operator- () const {
 }
 
 bigint bigint::operator+ (const bigint& that) const {
-   ubigint result = uvalue + that.uvalue;
-   return result;
-}
-
-bigint bigint::operator+ (const bigint& that) const {
    if(is_negative and that.is_negative){
       ubigint result = uvalue + that.uvalue;
       cout << "in _ - _" << endl;
       return {result, true};}
-   }
    if(is_negative and !that.is_negative){
       if(uvalue > that.uvalue){
          ubigint result = that.uvalue - uvalue;
