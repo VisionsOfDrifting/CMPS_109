@@ -86,7 +86,7 @@ class inode {
    public:
       inode (file_type);
       int get_inode_nr() const;
-      void set_name(string s) {file_name(s) ;}
+      void set_name(string s) {file_name = s;}
       string get_name() const {return file_name;}
      // bool is_dir();
 };
@@ -172,6 +172,8 @@ class directory: public base_file {
       map<string,inode_ptr> dirents;
    public:
       directroy();
+      directory(const directory&);
+      directory(directory&&);
       virtual size_t size() const override;
       virtual const wordvec& readfile() const override;
       virtual void writefile (const wordvec& newdata) override;
