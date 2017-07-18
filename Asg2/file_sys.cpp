@@ -25,41 +25,6 @@ ostream& operator<< (ostream& out, file_type type) {
    return out << hash[type];
 }
 
-inode_state::inode_state() {
-   DEBUGF ('i', "root = " << root << ", cwd = " << cwd
-          << ", prompt = \"" << prompt() << "\"");
-   root = inode::inode(DIRECTORY_TYPE, "/");
-   root.contents.set_parent(root);
-   set_cwd_to_root();
-   
-   cout << "root = " << root << ", cwd = " << cwd
-          << ", prompt = \"" << prompt() << "\"");
-}
-
-const string& inode_state::prompt() { return prompt_; }
-
-void inode_state::setprompt(const string &newprompt){
-   prompt = newprompt;
-}
-
-void inode_state::set_cwd_to_root(){
-   cwd = root;
-}
-
-inode_ptr inode_state::getcwd(){
-   return cwd;
-}
-
-inode_ptr inode_state::getroot(){
-   return root;
-}
-
-ostream& operator<< (ostream& out, const inode_state& state) {
-   out << "inode_state: root = " << state.root
-       << ", cwd = " << state.cwd;
-   return out;
-}
-
 inode::inode(file_type type, string name): inode_nr (next_inode_nr++){
    switch (type) {
       case file_type::PLAIN_TYPE:
@@ -220,4 +185,40 @@ void directory::add_dirent(const string& name, inode_ptr addition){
 
 void directory::add_file(const string& name, inode_ptr newfile){
    dirents[name] = newfile;
+   
+inode_state::inode_state() {
+   DEBUGF ('i', "root = " << root << ", cwd = " << cwd
+          << ", prompt = \"" << prompt() << "\"");
+   root = inode::inode(DIRECTORY_TYPE, "/");
+   root.contents.set_parent(root);
+   set_cwd_to_root();
+   
+   cout << "root = " << root << ", cwd = " << cwd
+          << ", prompt = \"" << prompt() << "\"");
+}
+
+const string& inode_state::prompt() { return prompt_; }
+
+void inode_state::setprompt(const string &newprompt){
+   prompt = newprompt;
+}
+
+void inode_state::set_cwd_to_root(){
+   cwd = root;
+}
+
+inode_ptr inode_state::getcwd(){
+   return cwd;
+}
+
+inode_ptr inode_state::getroot(){
+   return root;
+}
+
+ostream& operator<< (ostream& out, const inode_state& state) {
+   out << "inode_state: root = " << state.root
+       << ", cwd = " << state.cwd;
+   return out;
+}
+
 
