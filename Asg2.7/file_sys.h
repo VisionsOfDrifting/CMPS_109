@@ -79,14 +79,14 @@ class inode {
    private:
       static int next_inode_nr;
       int inode_nr;
-      string file_name {""};
+      string name {""};
       base_file_ptr contents;
      // bool isDir;
    public:
       inode (file_type);
       int get_inode_nr() const;
-      void set_name(string s) {name = s;}
-      const string name() const {return name;}
+      void set_name(string s): name(s) {}
+      string name() const {return name;}
      // bool is_dir();
 };
 
