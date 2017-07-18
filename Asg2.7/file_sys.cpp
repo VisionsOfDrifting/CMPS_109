@@ -51,20 +51,6 @@ int inode::get_inode_nr() const {
    return inode_nr;
 }
 
-const string inode::name(){
-   inode_ptr parent = get_child_dir("..");
-   if ( parent == this ) return "/";
-   else {
-      auto itor = parent->contents->dirents->begin();
-      auto end = parent.contents.dirents->end();
-      for (; itor != end; ++itor) {
-         if ( itor.second == this )
-            return string(itor.first);
-      }
-   }
-   return "";
-}
-
 ostream &operator<< (ostream &out, inode_ptr node) {
    auto itor = node.contents.dirents.begin();
    auto end = node.contents.dirents.end();
