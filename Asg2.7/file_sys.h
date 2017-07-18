@@ -88,6 +88,7 @@ class inode {
       int get_inode_nr() const;
       void set_name(string s) {file_name = s;}
       string get_name() const {return file_name;}
+      friend void lsr(inode_ptr&);
      // bool is_dir();
 };
 
@@ -171,7 +172,7 @@ class directory: public base_file {
       // Must be a map, not unordered_map, so printing is lexicographic
       map<string,inode_ptr> dirents;
    public:
-      directroy();
+      directory();
       directory(const directory&);
       directory(directory&&);
       virtual size_t size() const override;

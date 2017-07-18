@@ -9,7 +9,7 @@ using namespace std;
 
 #include "debug.h"
 #include "file_sys.h"
-
+#include "commands.h"
 int inode::next_inode_nr {1};
 
 struct file_type_hash {
@@ -85,7 +85,7 @@ ostream &operator<< (ostream &out, inode_ptr node) {
       if ( itor != end ) out << "\n";
    }
    return out;
-*/vi
+*/
 
 file_error::file_error (const string& what):
             runtime_error (what) {
