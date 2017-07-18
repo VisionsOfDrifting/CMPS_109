@@ -28,9 +28,23 @@ ostream& operator<< (ostream& out, file_type type) {
 inode_state::inode_state() {
    DEBUGF ('i', "root = " << root << ", cwd = " << cwd
           << ", prompt = \"" << prompt() << "\"");
+   root = inode::inode(DIRECTORY_TYPE, "/");
+   root.contents.set_parent(root);
+   set_cwd_to_root();
+   
+   cout << "root = " << root << ", cwd = " << cwd
+          << ", prompt = \"" << prompt() << "\"");
 }
 
 const string& inode_state::prompt() { return prompt_; }
+
+void inode_state::setprompt(const string &newprompt){
+   prompt = newprompt;
+}
+
+void inode_state::set_cwd_to_root(){
+   cwd = root;
+}
 
 ostream& operator<< (ostream& out, const inode_state& state) {
    out << "inode_state: root = " << state.root
@@ -38,13 +52,18 @@ ostream& operator<< (ostream& out, const inode_state& state) {
    return out;
 }
 
-inode::inode(file_type type): inode_nr (next_inode_nr++) {
+inode::inode(file_type type, string name): inode_nr (next_inode_nr++){
    switch (type) {
       case file_type::PLAIN_TYPE:
+           file_name = name;
            contents = make_shared<plain_file>();
+           isDir = false;
            break;
       case file_type::DIRECTORY_TYPE:
+           file_name = name;
            contents = make_shared<directory>();
+           contents.dirents["."] = this;
+           isDir = true;
            break;
    }
    DEBUGF ('i', "inode " << inode_nr << ", type = " << type);
@@ -55,6 +74,52 @@ int inode::get_inode_nr() const {
    return inode_nr;
 }
 
+inode_ptr inode::get_child_dir(const string &dirname){
+   inode_ptr target = nullptr;
+   if ( type == FILE_INODE ) return target;
+   //map<string, inode*>
+   directory::const_iterator itor = contents.dirents.begin();
+   directory::const_iterator end = contents.dirents.end();
+   for (; itor != end; ++itor) {
+      if ( dirname.compare(itor.first) == 0)
+         return itor.second;
+   }
+   return NULL;
+   
+}
+
+const string inode::name(){
+   inode_ptr parent = get_child_dir("..");
+   if ( parent == this ) return "/";
+   else {
+      directory::const_iterator itor =
+         parent.contents.dirents->begin();
+      directory::const_iterator end =
+         parent.contents.dirents->end();
+      for (; itor != end; ++itor) {
+         if ( itor.second == this )
+            return string(itor.first);
+      }
+   }
+   return "";
+}
+
+ostream &operator<< (ostream &out, inode_ptr node) {
+   directory::const_iterator itor = node.contents.dirents.begin();
+   directory::const_iterator end = node.contents.dirents.end();
+   int i = 0;
+   for (; itor != end;) {
+      out << setw(6) << itor->second.get_inode_nr() << setw(6)
+         << itor.second.size() << "  " << itor.first;
+      if ( i < 2 ){
+         ++i;
+      } else if ( itor.second.isDir ) 
+         out << "/";
+      ++itor;
+      if ( itor != end ) out << "\n";
+   }
+   return out;
+
 
 file_error::file_error (const string& what):
             runtime_error (what) {
@@ -63,6 +128,10 @@ file_error::file_error (const string& what):
 size_t plain_file::size() const {
    size_t size {0};
    DEBUGF ('i', "size = " << size);
+   wordvec_itor i = data->begin();
+   wordvec_itor end = data->end();
+   while( i != end ) size += i++.size();
+   size += data.size();
    return size;
 }
 
@@ -73,6 +142,13 @@ const wordvec& plain_file::readfile() const {
 
 void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
+   data.clear();
+   //words[0] = make, words[1] = filename,
+   //words[2] = new file information.
+   wordvec_itor itor = words.begin()+2;
+   while (itor != words.end()){
+      contents.data->push_back(*itor++);
+   }
 }
 
 void plain_file::remove (const string&) {
@@ -91,6 +167,7 @@ inode_ptr plain_file::mkfile (const string&) {
 size_t directory::size() const {
    size_t size {0};
    DEBUGF ('i', "size = " << size);
+   size = dirents.size();
    return size;
 }
 
@@ -108,11 +185,25 @@ void directory::remove (const string& filename) {
 
 inode_ptr directory::mkdir (const string& dirname) {
    DEBUGF ('i', dirname);
-   return nullptr;
+   inode_ptr dir = inode(DIRECTORY_TYPE, dirname);
+   return dir;
 }
 
 inode_ptr directory::mkfile (const string& filename) {
    DEBUGF ('i', filename);
-   return nullptr;
+   inode_ptr file = inode(PLAIN_TYPE, filename);
+   return file;
 }
+
+void directory::set_parent (inode_ptr parent) {
+   dirents[".."] = parent;
+}
+
+void directory::add_dirent(const string& name, inode_ptr addition){
+   dirents[name] = addition;
+   addition.set_parent(this);
+}
+
+void directory::add_file(const string& name, inode_ptr newfile){
+   dirents[name] = newfile;
 

@@ -89,6 +89,17 @@ void fn_prompt (inode_state& state, const wordvec& words){
 void fn_pwd (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   string path("");
+   path += state.cwd.name();
+   inode* parent = state.getcwd()->get_parent();
+   while ( parent->get_inode_nr() !=
+           state.getroot()->get_inode_nr() ){
+      path = parent->name() + "/" + path;
+      parent = parent->get_parent();
+   }
+   if ( path.compare("/") != 0)
+      path = "/" + path;
+   cout << path << endl; 
 }
 
 void fn_rm (inode_state& state, const wordvec& words){

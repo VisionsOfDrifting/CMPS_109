@@ -42,6 +42,11 @@ class inode_state {
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
       const string& prompt();
+      void setprompt(const string &newprompt);
+      inode_ptr getcwd();
+      inode-ptr getroot();
+      void set_cwd_to_root();
+      void set_cwd(inode* node);
 };
 
 // class inode -
@@ -59,13 +64,23 @@ class inode_state {
 
 class inode {
    friend class inode_state;
+   friend ostream &operator<< (ostream &out, inode_ptr node);
    private:
       static int next_inode_nr;
       int inode_nr;
+      string file_name;
       base_file_ptr contents;
+      bool isDir;
    public:
-      inode (file_type);
+      inode (file_type, string);
       int get_inode_nr() const;
+      void set_parent(inode* parent);
+      void add_dirent(string& name, inode* addition);
+      void add_file(string& name, inode* newfile);
+      inode* get_child_dir(const string& childname);
+      directory* get_dirents(); 
+      bool delete_child(const string& child_name);
+      inode* get_parent();
 };
 
 
