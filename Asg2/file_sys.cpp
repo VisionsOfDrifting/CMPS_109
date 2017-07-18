@@ -46,6 +46,14 @@ void inode_state::set_cwd_to_root(){
    cwd = root;
 }
 
+inode_ptr inode_state::getcwd(){
+   return cwd;
+}
+
+inode_ptr inode_state::getroot(){
+   return root;
+}
+
 ostream& operator<< (ostream& out, const inode_state& state) {
    out << "inode_state: root = " << state.root
        << ", cwd = " << state.cwd;
