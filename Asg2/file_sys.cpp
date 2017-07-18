@@ -35,11 +35,15 @@ inode::inode(file_type type, string name): inode_nr (next_inode_nr++){
       case file_type::DIRECTORY_TYPE:
            file_name = name;
            contents = make_shared<directory>();
-           contents.dirents["."] = this;
+           contents->dirents["."] = this;
            isDir = true;
            break;
    }
    DEBUGF ('i', "inode " << inode_nr << ", type = " << type);
+}
+
+bool inode::is_dir(){
+  return isDir;
 }
 
 int inode::get_inode_nr() const {
@@ -49,10 +53,10 @@ int inode::get_inode_nr() const {
 
 inode_ptr inode::get_child_dir(const string &dirname){
    inode_ptr target = nullptr;
-   if ( type == FILE_INODE ) return target;
+   if ( isDir ) return target;
    //map<string, inode*>
-   directory::const_iterator itor = contents.dirents.begin();
-   directory::const_iterator end = contents.dirents.end();
+   auto itor = contents.dirents.begin();
+   auto end = contents.dirents.end();
    for (; itor != end; ++itor) {
       if ( dirname.compare(itor.first) == 0)
          return itor.second;
