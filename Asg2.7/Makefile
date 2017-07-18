@@ -18,6 +18,7 @@ MODULESRC   = ${foreach MOD, ${MODULES}, ${MOD}.h ${MOD}.cpp}
 OTHERSRC    = ${filter-out ${MODULESRC}, ${CPPHEADER} ${CPPSOURCE}}
 ALLSOURCES  = ${MODULESRC} ${OTHERSRC} ${MKFILE}
 LISTING     = Listing.ps
+SUBMIT      = $(CPPHEADER) $(CPPSOURCE) Makefile README PARTNER
 
 all : ${EXECBIN}
 
@@ -51,6 +52,9 @@ ${DEPFILE} : ${MKFILE}
 
 again :
 	${GMAKE} spotless dep ci all lis
+
+submit :
+	submit cmps109-wm.u17 asg2 $(SUBMIT)
 
 ifeq (${NEEDINCL}, )
 include ${DEPFILE}
