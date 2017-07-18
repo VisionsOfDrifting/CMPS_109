@@ -3,6 +3,8 @@
 #include "commands.h"
 #include "debug.h"
 
+using inode_ptr = shared_ptr<inode>;
+
 command_hash cmd_hash {
    {"cat"   , fn_cat   },
    {"cd"    , fn_cd    },

@@ -42,9 +42,11 @@ class inode_state {
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
       const string& prompt();
+      const string name();
       void setprompt(const string &newprompt);
       inode_ptr getcwd();
       inode_ptr getroot();
+      inode_ptr get_parent();
       void set_cwd_to_root();
       void set_cwd(inode* node);
 };
