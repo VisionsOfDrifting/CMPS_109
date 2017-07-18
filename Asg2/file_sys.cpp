@@ -75,7 +75,7 @@ const string inode::name(){
    inode_ptr parent = get_child_dir("..");
    if ( parent == this ) return "/";
    else {
-      auto itor = parent.contents.dirents->begin();
+      auto itor = parent->contents->dirents->begin();
       auto end = parent.contents.dirents->end();
       for (; itor != end; ++itor) {
          if ( itor.second == this )
@@ -222,5 +222,4 @@ ostream& operator<< (ostream& out, const inode_state& state) {
        << ", cwd = " << state.cwd;
    return out;
 }
-
 
