@@ -42,11 +42,9 @@ class inode_state {
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
       const string& prompt();
-      const string name();
       void setprompt(const string &newprompt);
       inode_ptr getcwd();
       inode_ptr getroot();
-      inode_ptr get_parent();
       void set_cwd_to_root();
       void set_cwd(inode* node);
 };
@@ -79,10 +77,11 @@ class inode {
       void set_parent(inode* parent);
       void add_dirent(string& name, inode* addition);
       void add_file(string& name, inode* newfile);
-      inode* get_child_dir(const string& childname);
+      inode_ptr get_child_dir(const string& childname);
       directory* get_dirents(); 
       bool delete_child(const string& child_name);
-      inode* get_parent();
+      const string name();
+      inode_ptr get_parent();
 };
 
 
