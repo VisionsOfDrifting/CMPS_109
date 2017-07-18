@@ -46,7 +46,7 @@ class inode_state {
       inode_ptr getcwd();
       inode_ptr getroot();
       void set_cwd_to_root();
-      void set_cwd(inode* node);
+      void set_cwd(inode_ptr node);
 };
 
 // class inode -
@@ -64,6 +64,9 @@ class inode_state {
 
 class inode {
    friend class inode_state;
+   friend class base_file;
+   friend class plain_file;
+   friend class directory;
    friend ostream &operator<< (ostream &out, inode_ptr node);
    private:
       static int next_inode_nr;
@@ -82,6 +85,7 @@ class inode {
       bool delete_child(const string& child_name);
       const string name();
       inode_ptr get_parent();
+      bool is_dir();
 };
 
 

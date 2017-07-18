@@ -59,13 +59,13 @@ inode_ptr inode::get_child_dir(const string &dirname){
    auto end = contents.dirents.end();
    for (; itor != end; ++itor) {
       if ( dirname.compare(itor.first) == 0)
-         return itor.second;
+         return itor->second;
    }
    return NULL;
 }
 
 inode_ptr inode::get_parent(){
-   directory::iterator p = contents.dirents.begin();
+   auto p = contents.dirents.begin();
    ++p;
    return p.second;
 }
@@ -75,10 +75,8 @@ const string inode::name(){
    inode_ptr parent = get_child_dir("..");
    if ( parent == this ) return "/";
    else {
-      directory::const_iterator itor =
-         parent.contents.dirents->begin();
-      directory::const_iterator end =
-         parent.contents.dirents->end();
+      auto itor = parent.contents.dirents->begin();
+      auto end = parent.contents.dirents->end();
       for (; itor != end; ++itor) {
          if ( itor.second == this )
             return string(itor.first);
@@ -88,8 +86,8 @@ const string inode::name(){
 }
 
 ostream &operator<< (ostream &out, inode_ptr node) {
-   directory::const_iterator itor = node.contents.dirents.begin();
-   directory::const_iterator end = node.contents.dirents.end();
+   auto itor = node.contents.dirents.begin();
+   auto end = node.contents.dirents.end();
    int i = 0;
    for (; itor != end;) {
       out << setw(6) << itor->second.get_inode_nr() << setw(6)
