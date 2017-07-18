@@ -23,6 +23,7 @@ class directory;
 using inode_ptr = shared_ptr<inode>;
 using base_file_ptr = shared_ptr<base_file>;
 ostream& operator<< (ostream&, file_type);
+void lsr(inode_ptr&);
 
 
 // inode_state -
@@ -170,6 +171,7 @@ class directory: public base_file {
       // Must be a map, not unordered_map, so printing is lexicographic
       map<string,inode_ptr> dirents;
    public:
+      directroy();
       virtual size_t size() const override;
       virtual const wordvec& readfile() const override;
       virtual void writefile (const wordvec& newdata) override;

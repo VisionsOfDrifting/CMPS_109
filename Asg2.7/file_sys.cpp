@@ -1,6 +1,7 @@
 // $Id: file_sys.cpp,v 1.5 2016-01-14 16:16:52-08 - - $
 
 #include <iostream>
+#include <iomanip>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -23,6 +24,24 @@ ostream& operator<< (ostream& out, file_type type) {
       {file_type::DIRECTORY_TYPE, "DIRECTORY_TYPE"},
    };
    return out << hash[type];
+}
+
+void lsr(inode_ptr& dir){
+   map<string, inode_ptr> dirents = dir->contents->get_contents();
+   cout << dir->get_name() << ":" << endl;
+   for (auto i = dirents.cbegin(); i != dirents.cend(); ++i) {
+      cout << setw(6) << i->second->get_inode_nr() << "  " << setw(6)
+               << i->second->contents->size() << "  " << i->first
+               << endl;
+   }
+   for(auto i = dirents.begin(); i != dirents.end(); ++i){
+       if(i->first.compare(".") == 0 or i->first.compare("..") == 0);
+       else{
+          if(i->second->contents->is_dir()){
+             lsr(i->second);
+          }
+       }
+    }
 }
 
 inode::inode(file_type type): inode_nr (next_inode_nr++){
@@ -50,7 +69,7 @@ int inode::get_inode_nr() const {
    DEBUGF ('i', "inode = " << inode_nr);
    return inode_nr;
 }
-
+/*
 ostream &operator<< (ostream &out, inode_ptr node) {
    auto itor = node.contents.dirents.begin();
    auto end = node.contents.dirents.end();
@@ -66,7 +85,7 @@ ostream &operator<< (ostream &out, inode_ptr node) {
       if ( itor != end ) out << "\n";
    }
    return out;
-
+*/vi
 
 file_error::file_error (const string& what):
             runtime_error (what) {
@@ -77,7 +96,7 @@ size_t plain_file::size() const {
    DEBUGF ('i', "size = " << size);
    auto i = data.begin();
    auto end = data.end();
-   while( i != end ) size += i++.size();
+   while( i != end ) size += i++->size();
    size += data.size();
    return size;
 }
@@ -186,7 +205,7 @@ inode_state::inode_state() {
    root->contents->set_dir(cwd, parent);
    root->set_name("/");
    cout << "root = " << root << ", cwd = " << cwd
-          << ", prompt = \"" << prompt() << "\"");
+          << ", prompt = \"" << prompt() << "\"";
 }
 
 const string& inode_state::prompt() { return prompt_; }
