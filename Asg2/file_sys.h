@@ -44,7 +44,7 @@ class inode_state {
       const string& prompt();
       void setprompt(const string &newprompt);
       inode_ptr getcwd();
-      inode-ptr getroot();
+      inode_ptr getroot();
       void set_cwd_to_root();
       void set_cwd(inode* node);
 };

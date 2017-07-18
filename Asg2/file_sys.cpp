@@ -85,8 +85,14 @@ inode_ptr inode::get_child_dir(const string &dirname){
          return itor.second;
    }
    return NULL;
-   
 }
+
+inode_ptr inode::get_parent(){
+   directory::iterator p = contents.dirents.begin();
+   ++p;
+   return p.second;
+}
+
 
 const string inode::name(){
    inode_ptr parent = get_child_dir("..");
