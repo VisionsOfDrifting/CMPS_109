@@ -20,4 +20,14 @@ Nicholas Pappas spent   __2__ hours driving.
 Please grade the work submitted by nhpappas@ucsc.edu
 and not the work submitted by kbcrum@ucsc.edu
 
-Needs testing, but works.
+Everything seems to be running smoothly. Except for two things
+you cannot cd into ".." which is very frustrating. However,
+if you were in /test you could cd / and you would be in the
+root directory, so it does work with some bugs.
+
+Also if you try to remove a file it will deduct from the size
+of the directory when you ls it, but the name of the removed
+directory and its information remain.
+
+Thats about it, this project turned out a lot better than the
+last one.
