@@ -41,7 +41,7 @@ string inode::path(const inode_ptr& current) {
    if(name_fix != "/"){
    name_fix.pop_back();
    path.push_back(name_fix);
-   }
+   }else{path.push_back(name_fix);}
       
    if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
    {extraSlash = false; }
