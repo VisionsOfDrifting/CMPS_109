@@ -1,4 +1,9 @@
-// $Id: commands.h,v 1.11 2016-01-14 14:45:21-08 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg2
+*************/
 
 #ifndef __COMMANDS_H__
 #define __COMMANDS_H__

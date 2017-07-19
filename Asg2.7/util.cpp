@@ -1,4 +1,9 @@
-// $Id: util.cpp,v 1.11 2016-01-13 16:21:53-08 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg2
+*************/
 
 #include <cstdlib>
 #include <unistd.h>

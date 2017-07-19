@@ -1,4 +1,9 @@
-// $Id: util.h,v 1.12 2016-01-14 16:16:52-08 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg2
+*************/
 
 // util -
 //    A utility class to provide various services not conveniently

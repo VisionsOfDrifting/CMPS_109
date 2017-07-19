@@ -1,4 +1,3 @@
-# $Id: Makefile,v 1.21 2016-07-20 21:01:40-07 - - $
 
 MKFILE      = Makefile
 DEPFILE     = ${MKFILE}.dep

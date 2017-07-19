@@ -1,4 +1,9 @@
-// $Id: file_sys.h,v 1.5 2016-04-07 13:36:11-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg2
+*************/
 
 #ifndef __INODE_H__
 #define __INODE_H__
@@ -47,7 +52,6 @@ class inode_state {
       inode_ptr get_root() const {return root;}
       inode_ptr get_cwd() const {return cwd;}
       inode_ptr get_parent() const {return parent;}
-      void set_cwd_to_root();
       void set_cwd(inode_ptr new_cwd) {cwd = new_cwd;}
       void set_prompt(const string new_prompt){prompt_ = new_prompt;}
       void print_directory(const inode_ptr&, const wordvec&) const;
