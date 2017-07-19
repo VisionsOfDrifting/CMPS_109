@@ -37,13 +37,18 @@ string inode::path(const inode_ptr& current) {
    map<string, inode_ptr> dirents = current->contents->get_contents();
    inode_ptr parent = dirents.at("..");
    string dir_path;
-   if(parent->get_inode_nr() > 1){ dir_path += "/";}
+   bool extraSlash = true;
+   
+   if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
+   {extraSlash = false; }
    
    while(parent->get_inode_nr() > 1){
       path.push_back(parent->get_name());
       map<string, inode_ptr> dirents = parent->contents->get_contents();
       parent = dirents.at("..");
    }
+   if(extraSlash){path.push_back(parent->get_name());}
+   
    for(auto i = path.cend() - 1; i != path.cbegin() - 1; --i){
       dir_path += *i;
    }
@@ -237,10 +242,13 @@ const string& inode_state::prompt() { return prompt_; }
 
 void inode_state::print_path(const inode_ptr& current) const {
    vector<string> path;
-   path.push_back(current->get_name());
    map<string, inode_ptr> dirents = current->contents->get_contents();
    inode_ptr parent = dirents.at("..");
    bool extraSlash = true;
+   string name_fix = current->get_name();
+   name_fix.pop_back();
+   name_fix = "/" + name_fix;
+   path.push_back(name_fix);
    
    if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
    {extraSlash = false; }
@@ -250,6 +258,7 @@ void inode_state::print_path(const inode_ptr& current) const {
       map<string, inode_ptr> dirents = parent->contents->get_contents();
       parent = dirents.at("..");
    }
+   
    if(extraSlash){path.push_back(parent->get_name());}
    
    string temp = path.front();
