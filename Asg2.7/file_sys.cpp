@@ -242,7 +242,8 @@ void inode_state::print_path(const inode_ptr& current) const {
    inode_ptr parent = dirents.at("..");
    bool extraSlash = true;
    
-   if(parent == root){extraSlash = false;}
+   if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
+   {extraSlash = false; }
    
    while(parent->get_inode_nr() > 1){
       path.push_back(parent->get_name());
