@@ -33,11 +33,13 @@ ostream& operator<< (ostream& out, file_type type) {
 
 string inode::path(const inode_ptr& current) {
    vector<string> path;
-   path.push_back(current->get_name());
    map<string, inode_ptr> dirents = current->contents->get_contents();
    inode_ptr parent = dirents.at("..");
    string dir_path;
    bool extraSlash = true;
+   string name_fix = current->get_name();
+   name_fix.pop_back();
+   path.push_back(name_fix);
    
    if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
    {extraSlash = false; }
@@ -247,7 +249,6 @@ void inode_state::print_path(const inode_ptr& current) const {
    bool extraSlash = true;
    string name_fix = current->get_name();
    name_fix.pop_back();
-   name_fix = "/" + name_fix;
    path.push_back(name_fix);
    
    if(current->get_inode_nr() == 1 && parent->get_inode_nr() == 1)
