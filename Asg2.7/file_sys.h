@@ -89,6 +89,7 @@ class inode {
      // bool isDir;
    public:
       inode (file_type);
+      string path(const inode_ptr&);
       int get_inode_nr() const;
       void set_name(string s) {file_name = s;}
       string get_name() const {return file_name;}

@@ -31,9 +31,28 @@ ostream& operator<< (ostream& out, file_type type) {
    return out << hash[type];
 }
 
+string inode::path(const inode_ptr& current) {
+   vector<string> path;
+   path.push_back(current->get_name());
+   map<string, inode_ptr> dirents = current->contents->get_contents();
+   inode_ptr parent = dirents.at("..");
+   string dir_path;
+   if(parent->get_inode_nr() > 1){ dir_path += "/";}
+   
+   while(parent->get_inode_nr() > 1){
+      path.push_back(parent->get_name());
+      map<string, inode_ptr> dirents = parent->contents->get_contents();
+      parent = dirents.at("..");
+   }
+   for(auto i = path.cend() - 1; i != path.cbegin() - 1; --i){
+      dir_path += *i;
+   }
+   return dir_path;
+}
+
 void lsr(inode_ptr& dir){
    map<string, inode_ptr> dirents = dir->contents->get_contents();
-   cout << dir->get_name() << ":" << endl;
+   cout << dir->path(dir) << ":" << endl;
    for (auto i = dirents.cbegin(); i != dirents.cend(); ++i) {
       cout << setw(6) << i->second->get_inode_nr() << "  " << setw(6)
                << i->second->contents->size() << "  " << i->first
@@ -212,8 +231,6 @@ inode_state::inode_state() {
    cwd = root; parent = root;
    root->contents->set_dir(cwd, parent);
    root->set_name("/");
-   cout << "root = " << root << ", cwd = " << cwd
-          << ", prompt = \"" << prompt() << "\"";
 }
 
 const string& inode_state::prompt() { return prompt_; }
@@ -223,6 +240,9 @@ void inode_state::print_path(const inode_ptr& current) const {
    path.push_back(current->get_name());
    map<string, inode_ptr> dirents = current->contents->get_contents();
    inode_ptr parent = dirents.at("..");
+   
+   if(parent->get_inode_nr() > 1){ cout << "/";}
+   
    while(parent->get_inode_nr() > 1){
       path.push_back(parent->get_name());
       map<string, inode_ptr> dirents = parent->contents->get_contents();
@@ -239,7 +259,10 @@ void inode_state::print_directory
 (const inode_ptr& current, const wordvec& args) const {
    map<string, inode_ptr> dirents = current->contents->get_contents();
    if(args.size() == 1){
-      cout << current->get_name() << ":" << endl;
+      string name_fix = current->get_name();
+      name_fix.pop_back();
+      name_fix = "/" + name_fix;
+      cout << name_fix << ":" << endl;
       for(auto i = dirents.cbegin(); i != dirents.cend(); ++i){
          cout << setw(6) << i->second->get_inode_nr() << "  " << setw(6)
              << i->second->contents->size() << "  " << i->first << endl;
@@ -284,7 +307,7 @@ void inode_state::list_recursively
    if(args.size() == 1){
       lr = state.get_cwd();
       dirents = lr->contents->get_contents();
-      cout << lr->get_name() << ":" << endl;
+      cout << lr->path(lr) << ":" << endl;
       for (auto i = dirents.cbegin(); i != dirents.cend(); ++i) {
          cout << setw(6) << i->second->get_inode_nr() << "  " << setw(6)
                   << i->second->contents->size() << "  " << i->first
@@ -324,7 +347,7 @@ void inode_state::list_recursively
          dirents = lr->contents->get_contents();
       }
       //print top layer dir
-      cout << lr->get_name() << ":" << endl;
+      cout << lr->path(lr) << ":" << endl;
       for (auto i = dirents.cbegin(); i != dirents.cend(); ++i) {
          cout << setw(6) << i->second->get_inode_nr() << "  " << setw(6)
                   << i->second->contents->size() << "  " << i->first
@@ -486,9 +509,6 @@ void inode_state::change_directory
    }
 }
 
-// Removes the specified file or directory. Will easily remove files,
-// but directories must be empty before being removed.
-// WIP: currently decreases directory size, but not remove the name.
 void inode_state::remove(const inode_ptr& current,
          const wordvec& args) const {
    for (size_t k = 1; k != args.size(); ++k) {
