@@ -241,13 +241,14 @@ void inode_state::print_path(const inode_ptr& current) const {
    map<string, inode_ptr> dirents = current->contents->get_contents();
    inode_ptr parent = dirents.at("..");
    
-   if(parent->get_inode_nr() > 1){ cout << "/";}
+   //if(parent->get_inode_nr() > 1){ cout << "/";}
    
    while(parent->get_inode_nr() > 1){
       path.push_back(parent->get_name());
       map<string, inode_ptr> dirents = parent->contents->get_contents();
       parent = dirents.at("..");
    }
+   path.push_back(parent->get_name());
    for(auto i = path.cend() - 1; i != path.cbegin() - 1; --i){
       //if(i == path.cend() - 1) cout << *i;
       //else if(i > path.cbegin()) cout << *i << "/";
