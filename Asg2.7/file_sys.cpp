@@ -252,6 +252,9 @@ void inode_state::print_path(const inode_ptr& current) const {
    }
    if(extraSlash){path.push_back(parent->get_name());}
    
+   string temp = path.front();
+   temp.substr(0,temp.length()-1);
+   path.front() = temp;
    for(auto i = path.cend() - 1; i != path.cbegin() - 1; --i){
       //if(i == path.cend() - 1) cout << *i;
       //else if(i > path.cbegin()) cout << *i << "/";
