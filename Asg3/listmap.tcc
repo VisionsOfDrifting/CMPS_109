@@ -32,7 +32,7 @@ listmap<Key,Value,Less>::~listmap() {
    while (!empty()) { erase(begin());}
    TRACE ('l', reinterpret_cast<const void*> (this));
 }
-
+/*
 //
 // listmap::empty()
 //
@@ -70,14 +70,14 @@ const typename listmap<Key,Value,Less>::iterator
 listmap<Key,Value,Less>::cend() const{
    return iterator(anchor());
 }
-
+*/
 
 //
-// listmap::insert(const key_type&)
+// listmap::insert(const value_type&)
 //
 template <typename Key, typename Value, class Less>
 typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::insert (const key_type& that) {
+listmap<Key,Value,Less>::insert (const value_type& that) {
    Less less;
    listmap<Key,Value,Less>::iterator itor = begin();
    //Search map, determine if key exists or not
@@ -116,7 +116,7 @@ listmap<Key,Value,Less>::insert (const key_type& that) {
 //
 template <typename Key, typename Value, class Less>
 typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::find (const key_type& that) const {
+listmap<Key,Value,Less>::find (const key_type& that) {
    listmap<Key,Value,Less>::iterator itor = begin();
    while(itor!=end() && itor->first != that) {
      ++itor;}
@@ -135,7 +135,6 @@ listmap<Key,Value,Less>::erase (iterator position) {
    position.erase();
    TRACE ('l', &*position);
    return itor;
-}
 }
 
 
