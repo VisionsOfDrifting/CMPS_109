@@ -1,4 +1,9 @@
-// $Id: listmap.tcc,v 1.9 2016-07-20 21:00:33-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg3
+*************/
 
 #include "listmap.h"
 #include "trace.h"
@@ -32,45 +37,6 @@ listmap<Key,Value,Less>::~listmap() {
    while (!empty()) { erase(begin());}
    TRACE ('l', reinterpret_cast<const void*> (this));
 }
-/*
-//
-// listmap::empty()
-//
-template <typename Key, typename Value, class Less>
-bool listmap<Key,Value,Less>::empty() const {
-   return anchor_.next == &anchor_;
-}
-
-//
-// listmap::iterator listmap::begin()
-//
-template <typename Key, typename Value, class Less>
-typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::begin() {
-  return iterator (anchor_.next);
-}
-
-//
-// listmap::iterator listmap::end()
-//
-template <typename Key, typename Value, class Less>
-typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::end() {
-   return iterator (anchor());
-}
-
-template<typename Key, typename Value, class Less>
-const typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::cbegin() const{
-   return iterator(anchor_.next);
-}
-
-template<typename Key, typename Value, class Less>
-const typename listmap<Key,Value,Less>::iterator
-listmap<Key,Value,Less>::cend() const{
-   return iterator(anchor());
-}
-*/
 
 //
 // listmap::insert(const value_type&)
@@ -156,7 +122,6 @@ void listmap<Key,Value,Less>::iterator::erase() {
   }   
 }
 
-
 //
 // listmap::value_type& listmap::iterator::operator*()
 //
@@ -204,7 +169,7 @@ listmap<Key,Value,Less>::iterator::operator--() {
 // bool listmap::iterator::operator== (const iterator&)
 //
 template <typename Key, typename Value, class Less>
-inline bool listmap<Key,Value,Less>::iterator::operator==
+inline bool listmap<Key,Value,Less>::iterator::operator== \
             (const iterator& that) const {
    return this->where == that.where;
 }
@@ -213,7 +178,7 @@ inline bool listmap<Key,Value,Less>::iterator::operator==
 // bool listmap::iterator::operator!= (const iterator&)
 //
 template <typename Key, typename Value, class Less>
-inline bool listmap<Key,Value,Less>::iterator::operator!=
+inline bool listmap<Key,Value,Less>::iterator::operator!= \
             (const iterator& that) const {
    return this->where != that.where;
 }

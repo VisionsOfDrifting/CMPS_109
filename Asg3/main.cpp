@@ -1,4 +1,9 @@
-// $Id: main.cpp,v 1.9 2016-07-20 21:00:33-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg3
+*************/
 
 #include <cstdlib>
 #include <exception>
@@ -38,7 +43,7 @@ str_str_pair splitline(string line){
          if(value == "") value = "NO_VALUE"; 
       }
       
-    //Construct the pair and return it
+    //Construct pair and return it
     str_str_pair the_pair (key, value);
     return ( the_pair );
 }
@@ -48,8 +53,9 @@ void print_line(const string &file, int line, const string &line_str){
 }
 
 void run_file(const string &read_file, istream &input_file){
-   str_str_map *tester = new str_str_map();
+   str_str_map *myMap = new str_str_map();
    for(int line_num = 1;; ++line_num) {
+      //Writing more methods would really clean this up...
       try { 
          //Get the input line, reset variables
          bool found = false;
@@ -57,7 +63,7 @@ void run_file(const string &read_file, istream &input_file){
          getline (input_file, line);
          
          if(input_file.eof()) break;
-         //Case: Return key hit or empty line
+         //Case: Return key or empty line
          if(line.size() == 0){ 
             print_line(read_file,line_num,"");
             continue;
@@ -83,19 +89,19 @@ void run_file(const string &read_file, istream &input_file){
          //Comment
          if (line.at(0) == '#' || line.size() == 0){
             continue;}
-         //Equals sign - Print the map
+         //Equals sign - Print map
          if (line.compare("=")==0){ 
-            for (str_str_map::iterator itor = tester->begin(); \
-                 itor != tester->end(); ++itor) {
-                cout << *itor << endl;}                    
+            for (str_str_map::iterator itor = myMap->begin(); \
+                 itor != myMap->end(); ++itor) {
+                cout << *itor << endl;} 
             continue;}
-         //Split the line into the key and value
+         //Split into key and value
           str_str_pair k_v = splitline(line);
                    
-          //Case: key - when there is a key and no value
-          if(k_v.first.size() > 0 && k_v.second.size() == 0){
-             for (str_str_map::iterator itor = tester->begin(); \
-                  itor != tester->end(); ++itor) {
+          //Case: key - key and no value
+          if(k_v.first.size() > 0 and k_v.second.size() == 0){
+             for (str_str_map::iterator itor = myMap->begin(); \
+                  itor != myMap->end(); ++itor) {
                        if(itor->first == k_v.first) { 
                           found = true;
                           cout << *itor << endl;}
@@ -104,22 +110,22 @@ void run_file(const string &read_file, istream &input_file){
                 << "key not found" << endl; 
             continue;
          }
-         //Case: key= - when there is a key and an equals sign
-         if(k_v.first.size() > 0 && k_v.second == "NO_VALUE"){
-            for (str_str_map::iterator itor = tester->begin(); \
-                 itor != tester->end(); ++itor) {
+         //Case: key= - key and an equals sign, no value
+         if(k_v.first.size() > 0 and k_v.second == "NO_VALUE"){
+            for (str_str_map::iterator itor = myMap->begin(); \
+                 itor != myMap->end(); ++itor) {
                 if(itor->first == k_v.first) {
                     found = true;
-                    tester->erase(itor);
+                    myMap->erase(itor);
                     break;}               
             }
             if(found == false) cout << k_v.first << ": " 
                << "key not found" << endl;
             continue;}
-         //Case: =value - no key but there is a value
-          if(k_v.first.size() == 0 && k_v.second.size() > 0){
-            for (str_str_map::iterator itor = tester->begin(); \
-                 itor != tester->end(); ++itor) {
+         //Case: =value - no key but equals value
+          if(k_v.first.size() == 0 and k_v.second.size() > 0){
+            for (str_str_map::iterator itor = myMap->begin(); \
+                 itor != myMap->end(); ++itor) {
                 if(itor->second == k_v.second) {
                     found = true;
                     cout << *itor << endl;}
@@ -127,16 +133,16 @@ void run_file(const string &read_file, istream &input_file){
             if(found == false) cout << k_v.second << ": " 
                << "value not found" << endl; 
             continue;}
-         //Case: key=value - there is a key and value
-         if(k_v.first.size() > 0 && k_v.second.size() > 0){
-             for (str_str_map::iterator itor = tester->begin(); \
-                  itor != tester->end(); ++itor) {
+         //Case: key=value - key and value
+         if(k_v.first.size() > 0 and k_v.second.size() > 0){
+             for (str_str_map::iterator itor = myMap->begin(); \
+                  itor != myMap->end(); ++itor) {
                  //Case: It's in the map
                  if(itor->first == k_v.first) {
                     itor->second = k_v.second;
                     found = true;}
             }
-            if(found == false) tester->insert(k_v);
+            if(found == false) myMap->insert(k_v);
             cout << k_v.first << " = " << k_v.second << endl;
             continue;}
       }
@@ -146,7 +152,7 @@ void run_file(const string &read_file, istream &input_file){
                     << err.what() <<endl;
       }
     }
-    delete tester;
+    delete myMap;
 }
 
 void scan_options (int argc, char** argv) {

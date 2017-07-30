@@ -23,6 +23,7 @@ EXECBIN     = keyvalue
 OTHERS      = ${MKFILE} ${DEPFILE}
 ALLSOURCES  = ${ALLCPPSRC} ${OTHERS}
 LISTING     = Listing.ps
+SUBMIT      = $(CPPHEADER) $(CPPSOURCE) Makefile README PARTNER
 
 all : ${EXECBIN}
 
@@ -56,6 +57,9 @@ ${DEPFILE} :
 
 again :
 	${GMAKE} spotless dep ci all lis
+
+submit :
+	submit cmps109-wm.u17 asg3 $(SUBMIT)
 
 ifeq (${NEEDINCL}, )
 include ${DEPFILE}

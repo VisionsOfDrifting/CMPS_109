@@ -1,4 +1,9 @@
-// $Id: util.tcc,v 1.3 2014-06-27 17:49:07-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg3
+*************/
 
 #include <sstream>
 #include <typeinfo>

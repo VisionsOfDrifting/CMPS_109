@@ -1,4 +1,9 @@
-// $Id: trace.cpp,v 1.3 2014-05-29 19:20:19-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg3
+*************/
 
 #include <climits>
 #include <iostream>

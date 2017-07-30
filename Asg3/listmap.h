@@ -1,4 +1,9 @@
-// $Id: listmap.h,v 1.13 2017-07-17 15:16:35-07 - - $
+/**************
+*nhpappas
+*kbcrum
+*CMPS 109 Summer 2017 
+*Asg3
+*************/
 
 #ifndef __LISTMAP_H__
 #define __LISTMAP_H__
@@ -37,7 +42,7 @@ class listmap {
       iterator erase (iterator position);
       iterator begin() { return anchor()->next; }
       iterator end() { return anchor(); }
-      bool empty() const { return anchor() == anchor()->next; }
+      bool empty() { return anchor() == anchor()->next; }
 };
 
 
