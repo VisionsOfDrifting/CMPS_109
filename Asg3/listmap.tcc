@@ -82,30 +82,30 @@ listmap<Key,Value,Less>::insert (const value_type& that) {
    listmap<Key,Value,Less>::iterator itor = begin();
    //Search map, determine if key exists or not
    while (itor!=end()){
-      if(less(pair.first,itor->first)){
+      if(less(that.first,itor->first)){
          break;
-      }else if( not less(pair.first,itor->first)){ 
+      }else if( not less(that.first,itor->first)){ 
          ++itor;
       }
    }
    //Update value if key exists
    if(itor!=end()){
-      if(itor->first == pair.first) {
-          itor->second = pair.second;
+      if(itor->first == that.first) {
+          itor->second = that.second;
           return itor;
       }
    }
    
    //For adding the first node
    if(itor.where == anchor() && itor.where->next == anchor()) {
-     node* temp = new node(itor.where->next, itor.where, pair);
+     node* temp = new node(itor.where->next, itor.where, that);
      itor.where->next = temp;
      itor.where->prev = temp;
      return iterator(temp);
    }
    
    //Key does not already exist. Add to map
-   node* temp = new node(itor.where, itor.where->prev, pair);
+   node* temp = new node(itor.where, itor.where->prev, that);
    itor.where->prev->next = temp;
    itor.where->prev = temp;  
    return iterator(temp);

@@ -187,6 +187,6 @@ int main (int argc, char** argv) {
       input_file.close();
    }
    //return exit status;
-   delete sys_info::execname;
+  // delete sys_info::execname;
    return EXIT_STATUS;
 }
