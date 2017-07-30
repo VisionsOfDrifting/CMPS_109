@@ -37,7 +37,7 @@ class listmap {
       iterator erase (iterator position);
       iterator begin() { return anchor()->next; }
       iterator end() { return anchor(); }
-      bool empty() const { return begin() == end(); }
+      bool empty() const { return anchor() == anchor()->next; }
 };
 
 
