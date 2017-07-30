@@ -23,7 +23,7 @@ EXECBIN     = keyvalue
 OTHERS      = ${MKFILE} ${DEPFILE}
 ALLSOURCES  = ${ALLCPPSRC} ${OTHERS}
 LISTING     = Listing.ps
-SUBMIT      = $(CPPHEADER) $(CPPSOURCE) Makefile README PARTNER
+SUBMIT      = $(ALLCPPSRC) Makefile README 
 
 all : ${EXECBIN}
 
