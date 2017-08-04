@@ -90,6 +90,7 @@ void window::keyboard (GLubyte key, int x, int y) {
    glutPostRedisplay();
 }
 
+/*
 
 // Executed when a special function key is pressed.
 void window::special (int key, int x, int y) {
@@ -118,7 +119,7 @@ void window::special (int key, int x, int y) {
    }
    glutPostRedisplay();
 }
-
+*/
 
 void window::motion (int x, int y) {
    DEBUGF ('g', "x=" << x << ", y=" << y);
@@ -152,7 +153,7 @@ void window::main () {
    glutDisplayFunc (window::display);
    glutReshapeFunc (window::reshape);
    glutKeyboardFunc (window::keyboard);
-   glutSpecialFunc (window::special);
+  // glutSpecialFunc (window::special);
    glutMotionFunc (window::motion);
    glutPassiveMotionFunc (window::passivemotion);
    glutMouseFunc (window::mousefn);
