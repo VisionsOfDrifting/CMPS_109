@@ -12,6 +12,18 @@ using namespace std;
 #include "shape.h"
 #include "util.h"
 
+
+static unordered_map<string,void*> fontcode {
+   {"Fixed-8x13"    , GLUT_BITMAP_8_BY_13       },
+   {"Fixed-9x15"    , GLUT_BITMAP_9_BY_15       },
+   {"Helvetica-10"  , GLUT_BITMAP_HELVETICA_10  },
+   {"Helvetica-12"  , GLUT_BITMAP_HELVETICA_12  },
+   {"Helvetica-18"  , GLUT_BITMAP_HELVETICA_18  },
+   {"Times-Roman-10", GLUT_BITMAP_TIMES_ROMAN_10},
+   {"Times-Roman-24", GLUT_BITMAP_TIMES_ROMAN_24},
+};
+
+
 unordered_map<string,interpreter::interpreterfn>
 interpreter::interp_map {
    {"define" , &interpreter::do_define },
