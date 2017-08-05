@@ -20,10 +20,8 @@ class object {
    public:
       // Default copiers, movers, dtor all OK.
       void draw() { pshape->draw (center, color); }
-      void move (GLfloat delta_x, GLfloat delta_y) {
-         center.xpos += delta_x;
-         center.ypos += delta_y;
-      }
+      void move (GLfloat delta_x, GLfloat delta_y);
+      vertex get_center() {return center;}
 };
 
 class mouse {

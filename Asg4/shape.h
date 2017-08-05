@@ -44,11 +44,6 @@ class shape {
    friend ostream& operator<< (ostream& out, const shape&);
    protected:
       inline shape(); // Only subclass may instantiate.
-   private:
-      shape (const shape&) = delete; // Prevent copying.
-      shape& operator= (const shape&) = delete; // Prevent copying.
-      shape (shape&&) = delete; // Prevent moving.
-      shape& operator= (shape&&) = delete; // Prevent moving.
    public:
       shape (const shape&) = delete; // Prevent copying.
       shape& operator= (const shape&) = delete; // Prevent copying.
