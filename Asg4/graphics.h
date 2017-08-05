@@ -65,7 +65,17 @@ class window {
                   objects.push_back (obj); }
       static void setwidth (int width_) { width = width_; }
       static void setheight (int height_) { height = height_; }
+      static void move_selected_object(int dx, int dy);
+      static void next_object();
+      static void prev_object();
+      static void select_object(size_t obj);   
       static void main();
+      static int delta;
+      static int border_width;
+      static string border_color;
+      static bool selected;
+      static int get_width() {return width;}
+      static int get_height() {return height;}
 };
 
 #endif

@@ -10,9 +10,35 @@ using namespace std;
 
 int window::width = 640; // in pixels
 int window::height = 480; // in pixels
+int window::border_width = 4;
+string window::border_color = "red";
 vector<object> window::objects;
 size_t window::selected_obj = 0;
+bool window::selected = false;
+int window::delta = 4;
 mouse window::mus;
+
+
+object::object (const shared_ptr<shape>& sha, vertex& cen, 
+        rgbcolor& col) : pshape(sha), center(cen), color(col) {
+}
+
+void object::move(GLfloat delta_x, GLfloat delta_y) {
+    GLfloat x = delta_x + center.xpos;
+    GLfloat y = delta_y + center.ypos;
+    if (x < 0)
+        x += window::get_width();
+    else if (x > window::get_width())
+        x -= window::get_width();
+
+    if (y < 0)
+        y += window::get_height();
+    else if (y > window::get_height())
+        y -= window::get_height();
+
+    center.xpos = x;
+    center.ypos = y;
+}
 
 // Executed when window system signals to shut down.
 void window::close() {
@@ -35,7 +61,24 @@ void window::entry (int mouse_entered) {
 // Called to display the objects in the window.
 void window::display() {
    glClear (GL_COLOR_BUFFER_BIT);
-   for (auto& object: window::objects) object.draw();
+   for (size_t i = 0; i < window::objects.size(); i++) {
+       if (i == window::selected_obj) 
+           window::selected = true;
+       objects.at(i).draw();
+       if (i < 13) {
+           int w = glutBitmapWidth(GLUT_BITMAP_8_BY_13, 'c'); 
+           if (i > 9) w *= 2;
+           vertex center = objects.at(i).get_center();
+           glEnable(GL_COLOR_LOGIC_OP);
+           glLogicOp(GL_XOR);
+           //glColor3ubv(rgbcolor("white").ubvec);
+           glRasterPos2f(center.xpos - w/2, center.ypos - 4);
+           glutBitmapString(GLUT_BITMAP_8_BY_13, 
+        reinterpret_cast<const unsigned char*>(to_string(i).c_str()));
+           glDisable(GL_COLOR_LOGIC_OP);
+       }
+       window::selected = false;
+   }
    mus.draw();
    glutSwapBuffers();
 }
@@ -65,27 +108,29 @@ void window::keyboard (GLubyte key, int x, int y) {
          window::close();
          break;
       case 'H': case 'h':
-         //move_selected_object (
+         window::move_selected_object(-1, 0);
          break;
       case 'J': case 'j':
-         //move_selected_object (
+         window::move_selected_object(0, -1);
          break;
       case 'K': case 'k':
-         //move_selected_object (
+         window::move_selected_object(0, 1);
          break;
       case 'L': case 'l':
-         //move_selected_object (
+         window::move_selected_object(1, 0);
          break;
       case 'N': case 'n': case SPACE: case TAB:
+         next_object();
          break;
       case 'P': case 'p': case BS:
+         prev_object();
          break;
       case '0'...'9':
-         //select_object (key - '0');
+         select_object (key - '0');
          break;
       default:
-         cerr << unsigned (key) << ": invalid keystroke" << endl;
-         break;
+         cerr << (unsigned)key << ": invalid keystroke" << endl;
+      break;
    }
    glutPostRedisplay();
 }
@@ -141,6 +186,32 @@ void window::mousefn (int button, int state, int x, int y) {
    glutPostRedisplay();
 }
 
+void window::move_selected_object(int xdir, int ydir) {
+    if (objects.size() > 0) {
+        objects.at(selected_obj).move(xdir * window::delta,
+                                      ydir * window::delta);
+    }
+}
+
+void window::next_object() {
+    if (window::selected_obj == window::objects.size() - 1)
+        selected_obj = 0;
+    else
+        window::selected_obj = window::selected_obj + 1;
+}
+
+void window::prev_object() {
+    if (window::selected_obj == 0)
+        selected_obj = window::objects.size() - 1;
+    else
+        window::selected_obj = window::selected_obj - 1;
+}
+
+void window::select_object(size_t obj) {
+    if (obj <  window::objects.size())
+        window::selected_obj = obj;
+}
+
 void window::main () {
    static int argc = 0;
    glutInit (&argc, nullptr);
@@ -181,8 +252,8 @@ void mouse::draw() {
       void* font = GLUT_BITMAP_HELVETICA_18;
       glColor3ubv (color.ubvec);
       glRasterPos2i (10, 10);
-      auto ubytes = reinterpret_cast<const GLubyte*>
-                    (text.str().c_str());
+      auto ubytes = reinterpret_cast<const GLubyte*> \
+         (text.str().c_str());
       glutBitmapString (font, ubytes);
    }
 }

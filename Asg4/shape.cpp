@@ -56,7 +56,7 @@ polygon::polygon (const vertex_list& vertices): vertices(vertices) {
 }
 
 rectangle::rectangle (GLfloat width, GLfloat height):
-            polygon({/*make_poly(width,height)*/}) {
+       polygon({{0, 0}, {width, 0}, {width, height}, {0, height}}) {
    DEBUGF ('c', this << "(" << width << "," << height << ")");
 }
 
@@ -64,16 +64,108 @@ square::square (GLfloat width): rectangle (width, width) {
    DEBUGF ('c', this);
 }
 
+diamond::diamond (const GLfloat width, const GLfloat height):
+            polygon({{0, 0}, {-width / 2, height / 2},
+                     {0, height}, {width / 2, height / 2}}) {
+   DEBUGF ('c', this << "(" << width << "," << height << ")");
+}
+
+triangle::triangle (const vertex_list& vertices): polygon(vertices) {
+   DEBUGF ('c', this);
+}
+
+right_triangle::right_triangle (const GLfloat width, 
+                                const GLfloat height):
+    triangle({{0,0}, {0, height}, {width, 0}}) {
+   DEBUGF ('c', this << "(" << width << "," << height << ")");
+}
+
+isosceles::isosceles (const GLfloat width, const GLfloat height):
+    triangle({{-width/2,0}, {width/2, 0}, {0, height}}) {
+   DEBUGF ('c', this << "(" << width << "," << height << ")");
+}
+
+equilateral::equilateral (const GLfloat width):
+    isosceles(width, sqrt(3) * width / 2) {
+   DEBUGF ('c', this << "(" << width << ")");
+}
+
+
 void text::draw (const vertex& center, const rgbcolor& color) const {
    DEBUGF ('d', this << "(" << center << "," << color << ")");
+   rgbcolor textcolor;
+   if (window::selected == true)
+       textcolor = rgbcolor(window::border_color);
+   else
+       textcolor = color;
+   glColor3ubv(textcolor.ubvec);
+   glRasterPos2f(center.xpos, center.ypos);
+   glutBitmapString(glut_bitmap_font, 
+   reinterpret_cast<const unsigned char*>(textdata.c_str())); 
 }
 
 void ellipse::draw (const vertex& center, const rgbcolor& color) const {
    DEBUGF ('d', this << "(" << center << "," << color << ")");
+    // dimension has the width and height GLfloats
+   // center has the position GLfloats
+   glBegin(GL_POLYGON);
+   glEnable (GL_LINE_SMOOTH);
+   glColor3ubv(color.ubvec);
+   const float delta = 2 * M_PI / 32;
+   for (float theta = 0; theta < 2 * M_PI; theta += delta) {
+       float xpos = dimension.xpos/2 * cos(theta) + center.xpos;
+       float ypos = dimension.ypos/2 * sin(theta) + center.ypos;
+       glVertex2f(xpos, ypos);
+   }
+   glEnd();
+
+   if (window::selected == true) {
+       glLineWidth(window::border_width);
+       glBegin (GL_LINE_LOOP);
+       glEnable (GL_LINE_SMOOTH);
+       glColor3ubv(rgbcolor(window::border_color).ubvec);
+       const float delta = 2 * M_PI / 32;
+       for (float theta = 0; theta < 2 * M_PI; theta += delta) {
+           float xpos = dimension.xpos/2 * cos(theta) + center.xpos;
+           float ypos = dimension.ypos/2 * sin(theta) + center.ypos;
+           glVertex2f(xpos, ypos);
+       }
+       glEnd();
+   }
 }
 
 void polygon::draw (const vertex& center, const rgbcolor& color) const {
    DEBUGF ('d', this << "(" << center << "," << color << ")");
+   GLfloat xbar;
+   GLfloat ybar;
+   int i = 0;
+   for (vertex v : vertices) {
+       xbar = (xbar * i + v.xpos)/(i + 1);
+       ybar = (ybar * i + v.ypos)/(i + 1);
+       i++;
+   }
+   DEBUGF ('d', "xbar: " << xbar << ", ybar: " << ybar );
+   glBegin(GL_POLYGON);
+   glColor3ubv(color.ubvec);
+   for (vertex v : vertices) {
+       GLfloat x = center.xpos + v.xpos - xbar;
+       GLfloat y = center.ypos + v.ypos - ybar;
+       glVertex2f(x,y);
+   }
+   glEnd();
+
+   if (window::selected == true) {
+       glLineWidth(window::border_width);
+       glBegin (GL_LINE_LOOP);
+       glColor3ubv(rgbcolor(window::border_color).ubvec);
+       glLineWidth(window::border_width);
+       for (vertex v : vertices) {
+           GLfloat x = center.xpos + v.xpos - xbar;
+           GLfloat y = center.ypos + v.ypos - ybar;
+           glVertex2f(x,y);
+       }
+       glEnd();
+   }
 }
 
 void shape::show (ostream& out) const {

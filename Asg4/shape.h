@@ -44,6 +44,11 @@ class shape {
    friend ostream& operator<< (ostream& out, const shape&);
    protected:
       inline shape(); // Only subclass may instantiate.
+   private:
+      shape (const shape&) = delete; // Prevent copying.
+      shape& operator= (const shape&) = delete; // Prevent copying.
+      shape (shape&&) = delete; // Prevent moving.
+      shape& operator= (shape&&) = delete; // Prevent moving.
    public:
       shape (const shape&) = delete; // Prevent copying.
       shape& operator= (const shape&) = delete; // Prevent copying.
@@ -126,6 +131,28 @@ class diamond: public polygon {
    public:
       diamond (const GLfloat width, const GLfloat height);
 };
+
+
+class triangle: public polygon {
+    public:
+       triangle ( const vertex_list& vertices);
+};
+
+class right_triangle: public triangle {
+    public:
+       right_triangle (const GLfloat width, const GLfloat height);
+};
+
+class isosceles: public triangle {
+    public:
+       isosceles (const GLfloat width, const GLfloat height);
+};
+
+class equilateral: public isosceles {
+    public:
+       equilateral (const GLfloat width);
+};
+
 
 ostream& operator<< (ostream& out, const shape&);
 
