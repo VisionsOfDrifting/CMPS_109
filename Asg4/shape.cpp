@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "shape.h"
+#include "graphics.h"
 #include "util.h"
 
 static unordered_map<void*,string> fontname {
