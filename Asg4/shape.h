@@ -1,4 +1,8 @@
-// $Id: shape.h,v 1.2 2016-05-04 16:26:26-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #ifndef __SHAPE_H__
 #define __SHAPE_H__
@@ -8,6 +12,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 #include "rgbcolor.h"

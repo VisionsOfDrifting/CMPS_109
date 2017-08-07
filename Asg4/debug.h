@@ -1,4 +1,8 @@
-// $Id: debug.h,v 1.3 2016-07-20 21:32:12-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #ifndef __DEBUG_H__
 #define __DEBUG_H__

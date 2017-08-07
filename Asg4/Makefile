@@ -1,4 +1,3 @@
-# $Id: Makefile,v 1.7 2017-07-24 15:57:08-07 - - $
 
 MKFILE      = Makefile
 DEPFILE     = ${MKFILE}.dep
@@ -22,8 +21,6 @@ OBJECTS     = ${CPPSOURCE:.cpp=.o}
 LINKLIBS    = -lGL -lGLU -lglut -lm
 
 LISTING     = Listing.ps
-CLASS       = cmps109-wm.w15
-PROJECT     = asg3
 
 all : ${EXECBIN}
 	- checksource ${ALLSOURCES}
@@ -57,7 +54,7 @@ spotless : clean
 
 submit : ${ALLSOURCES}
 	- checksource ${ALLSOURCES}
-	submit ${CLASS} ${PROJECT} ${ALLSOURCES}
+	submit cmps109-wm.u17 asg3 ${ALLSOURCES} Makefile README
 
 dep : ${CPPSOURCE} ${CPPHEADER} ${TCCFILES} ${GENFILES}
 	@ echo "# ${DEPFILE} created `LC_TIME=C date`" >${DEPFILE}
