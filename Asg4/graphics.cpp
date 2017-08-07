@@ -133,7 +133,7 @@ void window::keyboard (GLubyte key, int x, int y) {
          select_object (key - '0');
          break;
       default:
-         cerr << (unsigned)key << ": invalid keystroke" << endl;
+         cerr << unsigned (key) << ": invalid keystroke" << endl;
       break;
    }
    glutPostRedisplay();

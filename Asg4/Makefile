@@ -54,7 +54,7 @@ spotless : clean
 
 submit : ${ALLSOURCES}
 	- checksource ${ALLSOURCES}
-	submit cmps109-wm.u17 asg3 ${ALLSOURCES} Makefile README
+	submit cmps109-wm.u17 asg4 ${ALLSOURCES} Makefile README
 
 dep : ${CPPSOURCE} ${CPPHEADER} ${TCCFILES} ${GENFILES}
 	@ echo "# ${DEPFILE} created `LC_TIME=C date`" >${DEPFILE}
