@@ -1,4 +1,8 @@
-// $Id: debug.cpp,v 1.2 2016-07-20 21:32:12-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #include <cassert>
 #include <climits>

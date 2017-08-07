@@ -1,4 +1,8 @@
-// $Id: graphics.h,v 1.1 2015-07-16 16:47:51-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #ifndef __GRAPHICS_H__
 #define __GRAPHICS_H__
@@ -13,6 +17,7 @@ using namespace std;
 #include "shape.h"
 
 class object {
+      friend class window;
    private:
       shared_ptr<shape> pshape;
       vertex center;
@@ -43,6 +48,7 @@ class mouse {
 
 class window {
       friend class mouse;
+      friend class object;
    private:
       static int width;         // in pixels
       static int height;        // in pixels

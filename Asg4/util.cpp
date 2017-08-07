@@ -1,4 +1,8 @@
-// $Id: util.cpp,v 1.1 2015-07-16 16:47:51-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #include <cerrno>
 #include <cstdlib>

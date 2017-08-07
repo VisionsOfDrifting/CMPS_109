@@ -1,4 +1,8 @@
-// $Id: rgbcolor.h,v 1.1 2015-07-16 16:47:51-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #ifndef __RGBCOLOR_H__
 #define __RGBCOLOR_H__
@@ -19,8 +23,8 @@ struct rgbcolor {
       };
    };
    explicit rgbcolor(): red(0), green(0), blue(0) {}
-   explicit rgbcolor (GLubyte red, GLubyte green, GLubyte blue):
-               red(red), green(green), blue(blue) {}
+   explicit rgbcolor (GLubyte red, GLubyte green, GLubyte blue): \
+      red(red), green(green), blue(blue) {}
    explicit rgbcolor (const string&);
    const GLubyte* ubvec3() { return ubvec; }
    operator string() const;

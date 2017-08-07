@@ -1,4 +1,8 @@
-// $Id: main.cpp,v 1.2 2016-07-20 21:33:16-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #include <fstream>
 #include <iostream>

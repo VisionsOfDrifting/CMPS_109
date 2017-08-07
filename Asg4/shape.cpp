@@ -1,4 +1,8 @@
-// $Id: shape.cpp,v 1.1 2015-07-16 16:47:51-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #include <typeinfo>
 #include <unordered_map>
@@ -37,13 +41,13 @@ shape::shape() {
    DEBUGF ('c', this);
 }
 
-text::text (void* glut_bitmap_font, const string& textdata):
+text::text (void* glut_bitmap_font, const string& textdata):\
       glut_bitmap_font(glut_bitmap_font), textdata(textdata) {
    DEBUGF ('c', this);
 }
 
-ellipse::ellipse (GLfloat width, GLfloat height):
-dimension ({width, height}) {
+ellipse::ellipse (GLfloat width, GLfloat height): \
+     dimension ({width, height}) {
    DEBUGF ('c', this);
 }
 
@@ -56,7 +60,7 @@ polygon::polygon (const vertex_list& vertices): vertices(vertices) {
    DEBUGF ('c', this);
 }
 
-rectangle::rectangle (GLfloat width, GLfloat height):
+rectangle::rectangle (GLfloat width, GLfloat height): \
        polygon({{0, 0}, {width, 0}, {width, height}, {0, height}}) {
    DEBUGF ('c', this << "(" << width << "," << height << ")");
 }
@@ -65,9 +69,9 @@ square::square (GLfloat width): rectangle (width, width) {
    DEBUGF ('c', this);
 }
 
-diamond::diamond (const GLfloat width, const GLfloat height):
-            polygon({{0, 0}, {-width / 2, height / 2},
-                     {0, height}, {width / 2, height / 2}}) {
+diamond::diamond (const GLfloat width, const GLfloat height): \
+    polygon({{0, 0}, {-width / 2, height / 2}, \
+    {0, height}, {width / 2, height / 2}}) {
    DEBUGF ('c', this << "(" << width << "," << height << ")");
 }
 
@@ -75,18 +79,18 @@ triangle::triangle (const vertex_list& vertices): polygon(vertices) {
    DEBUGF ('c', this);
 }
 
-right_triangle::right_triangle (const GLfloat width, 
-                                const GLfloat height):
-    triangle({{0,0}, {0, height}, {width, 0}}) {
+right_triangle::right_triangle (const GLfloat width, \
+    const GLfloat height): triangle({{0,0}, {0, height},\
+    {width, 0}}) {
    DEBUGF ('c', this << "(" << width << "," << height << ")");
 }
 
-isosceles::isosceles (const GLfloat width, const GLfloat height):
+isosceles::isosceles (const GLfloat width, const GLfloat height):\
     triangle({{-width/2,0}, {width/2, 0}, {0, height}}) {
    DEBUGF ('c', this << "(" << width << "," << height << ")");
 }
 
-equilateral::equilateral (const GLfloat width):
+equilateral::equilateral (const GLfloat width): \
     isosceles(width, sqrt(3) * width / 2) {
    DEBUGF ('c', this << "(" << width << ")");
 }
@@ -105,7 +109,7 @@ void text::draw (const vertex& center, const rgbcolor& color) const {
    reinterpret_cast<const unsigned char*>(textdata.c_str())); 
 }
 
-void ellipse::draw (const vertex& center, const rgbcolor& color) const {
+void ellipse::draw (const vertex& center, const rgbcolor& color) const{
    DEBUGF ('d', this << "(" << center << "," << color << ")");
     // dimension has the width and height GLfloats
    // center has the position GLfloats
@@ -135,7 +139,7 @@ void ellipse::draw (const vertex& center, const rgbcolor& color) const {
    }
 }
 
-void polygon::draw (const vertex& center, const rgbcolor& color) const {
+void polygon::draw (const vertex& center, const rgbcolor& color) const{
    DEBUGF ('d', this << "(" << center << "," << color << ")");
    GLfloat xbar;
    GLfloat ybar;

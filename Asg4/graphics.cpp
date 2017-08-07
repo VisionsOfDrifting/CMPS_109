@@ -1,4 +1,8 @@
-// $Id: graphics.cpp,v 1.3 2016-07-20 21:33:16-07 - - $
+/**************
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg4
+*************/
 
 #include <iostream>
 using namespace std;
@@ -73,7 +77,7 @@ void window::display() {
            glLogicOp(GL_XOR);
            //glColor3ubv(rgbcolor("white").ubvec);
            glRasterPos2f(center.xpos - w/2, center.ypos - 4);
-           glutBitmapString(GLUT_BITMAP_8_BY_13, 
+           glutBitmapString(GLUT_BITMAP_8_BY_13, \
         reinterpret_cast<const unsigned char*>(to_string(i).c_str()));
            glDisable(GL_COLOR_LOGIC_OP);
        }
@@ -188,7 +192,7 @@ void window::mousefn (int button, int state, int x, int y) {
 
 void window::move_selected_object(int xdir, int ydir) {
     if (objects.size() > 0) {
-        objects.at(selected_obj).move(xdir * window::delta,
+        objects.at(selected_obj).move(xdir * window::delta, \
                                       ydir * window::delta);
     }
 }
@@ -253,7 +257,7 @@ void mouse::draw() {
       glColor3ubv (color.ubvec);
       glRasterPos2i (10, 10);
       auto ubytes = reinterpret_cast<const GLubyte*> \
-         (text.str().c_str());
+                    (text.str().c_str());
       glutBitmapString (font, ubytes);
    }
 }
