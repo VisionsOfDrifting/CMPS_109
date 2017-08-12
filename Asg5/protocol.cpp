@@ -2,9 +2,32 @@
 
 #include <unordered_map>
 #include <string>
+
 using namespace std;
 
 #include "protocol.h"
+
+size_t file_size(string filename) {
+    struct stat st;
+    if (stat(filename.c_str(), &st) != 0) {
+        return 0;
+    }
+    return st.st_size;
+}
+
+void load_from_file(string filename, char* buffer, uint32_t filesize) {
+    ifstream infile (filename);
+    if (infile == NULL) {
+        buffer = NULL;
+        return;
+    }
+    infile.read(buffer, filesize);
+}
+
+void write_to_file(string filename, char* buffer, uint32_t filesize) {
+    ofstream outfile (filename, ofstream::out);
+    outfile.write(buffer, filesize);
+}
 
 struct cix_hasher {
    size_t operator() (cix_command cmd) const {
@@ -76,6 +99,6 @@ in_port_t get_cix_server_port (const vector<string>& args,
       char* envport = getenv ("CIX_SERVER_PORT");
       if (envport != nullptr) port = envport;
    }
-   return stoi (port);
+   return stoi(port);
 }
      
