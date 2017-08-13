@@ -1,7 +1,7 @@
 // $Id: cix.cpp,v 1.4 2016-05-09 16:01:56-07 - - $
 
 #include <iostream>
-#INCLUDE <fstream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <unordered_map>
