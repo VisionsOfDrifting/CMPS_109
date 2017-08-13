@@ -64,7 +64,7 @@ void cix_get(client_socket& server, string filename) {
     cix_header header;
     memset(&header, 0, sizeof header);
     header.command = cix_command::GET;
-    snprintf(header.filename, filename.c_str());
+    strcpy(header.filename, filename.c_str());
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
     recv_packet(server, &header, sizeof header);
@@ -96,7 +96,7 @@ void cix_put(client_socket& server, string filename) {
     load_from_file(filename, output, nbytes);
     // send put cmd
     header.command = cix_command::PUT;
-    snprintf(header.filename, filename.c_str());
+    strcpy(header.filename, filename.c_str());
 
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
@@ -122,7 +122,7 @@ void cix_rm(client_socket& server, string filename) {
     cix_header header;
     memset(&header, 0, sizeof header);
     header.command = cix_command::RM;
-    snprintf(header.filename, filename.c_str());
+    strcpy(header.filename, filename.c_str());
     header.nbytes = 0;
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
