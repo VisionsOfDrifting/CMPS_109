@@ -86,7 +86,7 @@ void cix_put(client_socket& server, string filename) {
     cix_header header;
     memset(&header, 0, sizeof header);
     ifstream file (filename);
-    if (file == NULL) {
+    if (file.fail()) {
         log << "invalid filename (" << filename << ")" << endl;
         return;
     }

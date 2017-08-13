@@ -19,7 +19,7 @@ size_t file_size(string filename) {
 
 void load_from_file(string filename, char* buffer, uint32_t filesize) {
     ifstream infile (filename);
-    if (infile == NULL) {
+    if (infile.fail()) {
         buffer = NULL;
         return;
     }

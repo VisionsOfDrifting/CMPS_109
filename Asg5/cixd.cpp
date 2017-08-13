@@ -51,7 +51,7 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
 
 void reply_get(accepted_socket& client_sock, cix_header& header) {
     ifstream file (header.filename);
-    if (file == NULL) {
+    if (file.fail()) {
         log << "opening file (" << header.filename << ") failed"
             << strerror(errno) << endl;
         header.command = cix_command::NAK;
@@ -124,9 +124,9 @@ void run_server (accepted_socket& client_sock) {
                break;
             default:
                log << "invalid header from client" << endl;
-               log << "cix_nbytes = " << header.nbytes << endl;
-               log << "cix_command = " << header.command << endl;
-               log << "cix_filename = " << header.filename << endl;
+              // log << "cix_nbytes = " << header.nbytes << endl;
+              // log << "cix_command = " << header.command << endl;
+              // log << "cix_filename = " << header.filename << endl;
                break;
            
          }
