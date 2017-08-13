@@ -11,6 +11,7 @@ using namespace std;
 #include <libgen.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdio.h>
 
 #include "protocol.h"
 #include "logstream.h"
@@ -69,7 +70,7 @@ void cix_get(client_socket& server, string filename) {
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::FILE) {
-        log << "sent cix_command::GET, server 
+        log << "sent cix_command::GET, server \
            did not return cix_command::FILE" << endl;
         log << "server returned " << header << endl;
         return;
@@ -108,7 +109,7 @@ void cix_put(client_socket& server, string filename) {
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::ACK) {
-        log << "sent cix_command::PUT, server 
+        log << "sent cix_command::PUT, server \
            did not return cix_command::ACK" << endl;
         log << "server returned " << header << endl;
         log << "with err msg: " << strerror(header.nbytes) << endl;
@@ -129,7 +130,7 @@ void cix_rm(client_socket& server, string filename) {
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::ACK) {
-        log << "sent cix_command::RM, server 
+        log << "sent cix_command::RM, server \
            did not return cix_command::ACK" << endl;
         log << "server returned " << header << endl;
         log << "with err msg: " << strerror(header.nbytes) << endl;
