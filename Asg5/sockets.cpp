@@ -1,4 +1,9 @@
-// $Id: sockets.cpp,v 1.1 2015-05-12 18:48:40-07 - - $
+/**************
+*mlychagi
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg5
+*************/
 
 #include <cerrno>
 #include <cstring>

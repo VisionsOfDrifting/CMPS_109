@@ -1,4 +1,9 @@
-// $Id: protocol.cpp,v 1.5 2016-08-11 16:31:54-07 - - $
+/**************
+*mlychagi
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg5
+*************/
 
 #include <unordered_map>
 #include <string>

@@ -1,4 +1,9 @@
-// $Id: cix.cpp,v 1.4 2016-05-09 16:01:56-07 - - $
+/**************
+*mlychagi
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg5
+*************/
 
 #include <iostream>
 #include <fstream>
@@ -64,14 +69,15 @@ void cix_get(client_socket& server, string filename) {
     cix_header header;
     memset(&header, 0, sizeof header);
     header.command = cix_command::GET;
-    strcpy(header.filename, filename.c_str());
+    snprintf(header.filename, sizeof(header.filename),
+        filename.c_str());
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::FILE) {
-        log << "sent cix_command::GET, server \
-           did not return cix_command::FILE" << endl;
+        log << "sent cix_command::GET, server";
+        log << "did not return cix_command::FILE" << endl;
         log << "server returned " << header << endl;
         return;
     }
@@ -79,7 +85,6 @@ void cix_get(client_socket& server, string filename) {
     recv_packet(server, buffer, header.nbytes);
     log << "received " << header.nbytes << " bytes" << endl;
     buffer[header.nbytes] = '\0';
-    cout << buffer;
     write_to_file(filename, buffer, header.nbytes);
 }
 
@@ -96,7 +101,8 @@ void cix_put(client_socket& server, string filename) {
     load_from_file(filename, output, nbytes);
     // send put cmd
     header.command = cix_command::PUT;
-    strcpy(header.filename, filename.c_str());
+    snprintf(header.filename, sizeof(header.filename),
+        filename.c_str());
 
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
@@ -109,8 +115,8 @@ void cix_put(client_socket& server, string filename) {
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::ACK) {
-        log << "sent cix_command::PUT, server \
-           did not return cix_command::ACK" << endl;
+        log << "sent cix_command::PUT, server";
+        log << "did not return cix_command::ACK" << endl;
         log << "server returned " << header << endl;
         log << "with err msg: " << strerror(header.nbytes) << endl;
         return;
@@ -122,7 +128,8 @@ void cix_rm(client_socket& server, string filename) {
     cix_header header;
     memset(&header, 0, sizeof header);
     header.command = cix_command::RM;
-    strcpy(header.filename, filename.c_str());
+    snprintf(header.filename, sizeof(header.filename),
+        filename.c_str());
     header.nbytes = 0;
     log << "sending header " << header << endl;
     send_packet(server, &header, sizeof header);
@@ -130,8 +137,8 @@ void cix_rm(client_socket& server, string filename) {
     recv_packet(server, &header, sizeof header);
     log << "received header " << header << endl;
     if (header.command != cix_command::ACK) {
-        log << "sent cix_command::RM, server \
-           did not return cix_command::ACK" << endl;
+        log << "sent cix_command::RM, server";
+        log << "did not return cix_command::ACK" << endl;
         log << "server returned " << header << endl;
         log << "with err msg: " << strerror(header.nbytes) << endl;
         return;
@@ -170,7 +177,7 @@ int main (int argc, char** argv) {
          log << "args: " << args << endl;
          if (cmd_str.size() == 0) continue;
          
-         const auto& itor = command_map.find (line);
+         const auto& itor = command_map.find (cmd_str);
          cix_command cmd = itor == command_map.end()
                          ? cix_command::ERROR : itor->second;
          switch (cmd) {

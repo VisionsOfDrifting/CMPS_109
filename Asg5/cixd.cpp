@@ -1,4 +1,9 @@
-// $Id: cixd.cpp,v 1.7 2016-05-09 16:01:56-07 - - $
+/**************
+*mlychagi
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg5
+*************/
 
 #include <iostream>
 #include <fstream>

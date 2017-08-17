@@ -1,4 +1,9 @@
-// $Id: protocol.h,v 1.3 2016-05-09 16:01:56-07 - - $
+/**************
+*mlychagi
+*nhpappas
+*CMPS 109 Summer 2017 
+*Asg5
+*************/
 
 #ifndef __PROTOCOL__H__
 #define __PROTOCOL__H__
