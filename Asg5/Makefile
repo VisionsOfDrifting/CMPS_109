@@ -1,4 +1,3 @@
-# $Id: Makefile,v 1.7 2016-07-25 20:09:21-07 - - $
 
 WARN     = -Wall -Wextra -Wold-style-cast
 GPP      = g++ -std=gnu++14 -g -O0 ${WARN}
@@ -40,6 +39,9 @@ clean:
 
 spotless: clean
 	- rm ${EXECBINS}
+
+submit :
+	submit cmps109-wm.u17 asg5 ${SOURCES} README PARTNER
 
 dep:
 	- rm ${DEPFILE}
